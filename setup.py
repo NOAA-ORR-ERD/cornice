@@ -14,8 +14,24 @@ requires = ['pyramid>=1.7',  'simplejson', 'six', 'venusian']
 entry_points = ""
 package_data = {}
 
+
+def get_version(pkg_name):
+    """
+    Reads the version string from the package __init__ and returns it
+
+    This make version management a build-time action, rather than a
+    run-time action, which is what pkg_resources does.
+    """
+    with open(os.path.join(pkg_name, "__init__.py")) as init_file:
+        for line in init_file:
+            parts = line.strip().partition("=")
+            if parts[0].strip() == "__version__":
+                return parts[2].strip().strip("'").strip('"')
+    return None
+
+
 setup(name='cornice',
-      version='4.1.0.dev0',
+      version=get_version('cornice'),
       description='Define Web Services in Pyramid.',
       long_description=README + '\n\n' + CHANGES,
       license='MPLv2.0',

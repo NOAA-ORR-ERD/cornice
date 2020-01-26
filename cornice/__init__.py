@@ -2,7 +2,6 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 import logging
-import pkg_resources
 from functools import partial
 
 from cornice import util
@@ -23,7 +22,9 @@ from pyramid.settings import aslist, asbool
 
 logger = logging.getLogger('cornice')
 # Module version, as defined in PEP-0396.
-__version__ = pkg_resources.get_distribution(__package__).version
+# using hard-coded version, so as to not need pkg_resources
+# version is read from here in setup.py
+__version__ = '4.1.0.dev0'
 
 
 def set_localizer_for_languages(event, available_languages,
